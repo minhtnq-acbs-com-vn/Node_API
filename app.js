@@ -1,7 +1,5 @@
 import express from "express";
-import https from "https";
 import dotenv from "dotenv";
-import { options } from "./config/sslOptions.js";
 
 dotenv.config({ path: "./config/config.env" });
 
@@ -37,7 +35,10 @@ app.put("/api/v1/config/:id", (req, res) => {});
 // Get all config from a specific device
 // If can't find it
 // Means that device yet to have a config, auto config it and set to database then sent the config back as a response
-app.get("/api/v1/device/:id", (req, res) => {});
+app.get("/api/v1/device/:id", (req, res) => {
+  console.log(req.body);
+  res.status(200).json("Got your id");
+});
 
 // Get mobile topics, this way the topics is synchronized between relationships
 app.get("/api/v1/mobile", (req, res) => {});
@@ -45,8 +46,6 @@ app.get("/api/v1/mobile", (req, res) => {});
 // Same for scheduler
 app.get("/api/v1/scheduler", (req, res) => {});
 
-let server = https.createServer(options, app);
-
-server.listen(process.env.port, () => {
-  console.log("server starting on port : " + process.env.port);
+app.listen(process.env.port, () => {
+  console.log("Server is running on: ", process.env.port);
 });
