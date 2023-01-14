@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-
+import { connectDatabase, getDatabaseConnection } from "./db.js";
 dotenv.config({ path: "./config/config.env" });
 
 const app = express();
@@ -8,42 +8,193 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Get all devices but only list out distinct room(s)
-app.get("/api/v1/rooms", (req, res) => {});
+let databaseClient;
+
+const DatabaseManage = async () => {
+  let devices = [];
+  try {
+    await connectDatabase(process.env.databasebURI);
+    databaseClient = getDatabaseConnection();
+    const databaseResponse = await databaseClient
+      .collection("Mobile")
+      .find();
+    await databaseResponse.forEach(device => {
+      devices.push(device);
+    });
+    const json = JSON.parse(JSON.stringify(devices));
+    console.log(json);
+  } catch (err) {
+    console.log("", err);
+  }
+};
+
+DatabaseManage();
 
 // Get all devices that belongs to a specific room
+/*
+REQUEST GET: /api/v1/room/{roomName}
+RESPONSE: 
+[
+  {
+  _id: <string>,
+  room: <string>,
+  module: <string>,
+  topic: { subscribe: <string>, ack: <string>, publish: <string>},
+  ack: { {sensorName}: <string>, {sensorName}: <string>},
+  request: { door: <string>, pir: <string>, api: <string>},
+  }, etc,..
+]
+*/
 app.get("/api/v1/room/:id", (req, res) => {});
 
-// Get all available schedule(s)
-app.get("/api/v1/schedules", (req, res) => {});
-
-// Get detail of one specific schedule
-app.get("/api/v1/schedule/:id", (req, res) => {});
+// Get all available schedule(s) belongs to a specific room
+/*
+REQUEST GET: /api/v1/schedules/{roomName}
+RESPONSE: 
+[
+  {
+    _id: <string>,
+    deviceID: <string>,
+    deviceModule: <string>,
+    room: <string>,
+    timeOn: <string>,
+    timeOff: <string>,
+    repeat: <string>
+  }, etc,..
+]
+*/
+app.get("/api/v1/schedules/:id", (req, res) => {});
 
 // Add schedule to database
+/*
+REQUEST POST: /api/v1/schedules
+[
+  {
+    deviceID: <string>,
+    deviceModule: <string>,
+    room: <string>,
+    timeOn: <string>,
+    timeOff: <string>,
+    repeat: <string>
+  }
+]
+RESPONSE: {success: true}
+*/
 app.post("/api/v1/schedules", (req, res) => {});
 
+// Update schedule to database
+/*
+REQUEST PUT: /api/v1/schedules/{scheduleID}
+[
+  {
+    _id: <string>,
+    deviceID: <string>,
+    deviceModule: <string>,
+    room: <string>,
+    timeOn: <string>,
+    timeOff: <string>,
+    repeat: <string>
+  }
+]
+RESPONSE: {success: true}
+*/
+app.put("/api/v1/schedules/:id", (req, res) => {});
+
+// Delete schedule from database
+/*
+REQUEST DELETE: /api/v1/schedules/{scheduleID}
+[
+  {
+    _id: <string>,
+    deviceID: <string>,
+    deviceModule: <string>,
+    room: <string>,
+    timeOn: <string>,
+    timeOff: <string>,
+    repeat: <string>
+  }
+]
+RESPONSE: {success: true}
+*/
+app.delete("/api/v1/schedules/:id", (req, res) => {});
+
 // Get config of one specific device
+/*
+REQUEST GET: /api/v1/config/{deviceID}
+RESPONSE: 
+[
+  { deviceID: '', room: '', loopTime: '' }
+]
+*/
 app.get("/api/v1/config/:id", (req, res) => {});
 
 // Add config of a specific device to database
+/*
+REQUEST POST: /api/v1/config/{deviceID}
+[
+  { deviceID: '', room: '', loopTime: '' }
+]
+RESPONSE: {success: true}
+*/
 app.post("/api/v1/config/:id", (req, res) => {});
 
 // Update config of a specific device to database
+/*
+REQUEST PUT: /api/v1/config/{deviceID}
+[
+  { deviceID: '', room: '', loopTime: '' }
+]
+RESPONSE: {success: true}
+*/
 app.put("/api/v1/config/:id", (req, res) => {});
 
 // Get all config from a specific device
-// If can't find it
-// Means that device yet to have a config, auto config it and set to database then sent the config back as a response
+// If can't find it || If can find it response its config back
+// Means that device yet to have a config, auto config
+// Set to database then sent the config back as a response
+/*
+REQUEST GET: /api/v1/device/{deviceID}:{roomName}:{module}
+RESPONSE: 
+{
+  "ack": { "door": " ", "pir": "" },
+  "request": { "door": "", "pir": "", "api": "" },
+  "pin": { "door": "", "pir":  ""}
+}
+*/
 app.get("/api/v1/device/:id", (req, res) => {
+  res.status(200).json("Got your id"); // Must have
+});
+
+// Init device information to database (not found device config use case)
+/*
+REQUEST POST: /api/v1/device/
+{
+  roomName: <string>,
+  deviceModule:  <string>,
+  topic: [  <string>,  <string>,  <string> ],
+  ack: [  <string>,  <string> ],
+  request: [  <string>,  <string>,  <string> ],
+  pin: [<int>, <int>]
+}
+RESPONSE: { success: true }
+*/
+app.post("/api/v1/device/", (req, res) => {
   console.log(req.body);
-  res.status(200).json("Got your id");
+  res.json({ success: true });
 });
 
 // Get mobile topics, this way the topics is synchronized between relationships
+/*
+REQUEST GET: /api/v1/mobile
+RESPONSE: [ { _id: '63bd16a33f437f2abf05319a', subscribe: '', public: '' } ]
+*/
 app.get("/api/v1/mobile", (req, res) => {});
 
 // Same for scheduler
+/*
+REQUEST GET: /api/v1/scheduler
+RESPONSE: [ { _id: '63bd16a33f437f2abf05319a', subscribe: '', public: '' } ]
+*/
 app.get("/api/v1/scheduler", (req, res) => {});
 
 app.listen(process.env.port, () => {
