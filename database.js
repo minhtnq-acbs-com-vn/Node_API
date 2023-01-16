@@ -1,18 +1,17 @@
 import { MongoClient } from "mongodb";
 
-let databaseConn;
+let dbInstance;
 
 async function connectDatabase(uri) {
   const client = new MongoClient(uri);
   try {
-    console.log("connect success");
     await client.connect();
-    databaseConn = client.db("Iot");
+    dbInstance = client.db("Iot");
   } catch (e) {
     console.error(e);
   }
 }
 
-const getDatabaseConnection = () => databaseConn;
+const getDatabaseConnection = () => dbInstance;
 
 export { connectDatabase, getDatabaseConnection };
