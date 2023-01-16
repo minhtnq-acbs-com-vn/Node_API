@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import { connectDatabase, getDatabaseConnection } from "./db.js";
+import { connectDatabase, getDatabaseConnection } from "./database.js";
 dotenv.config({ path: "./config/config.env" });
 
 const app = express();
@@ -10,25 +10,8 @@ app.use(express.urlencoded({ extended: true }));
 
 let databaseClient;
 
-const DatabaseManage = async () => {
-  let devices = [];
-  try {
-    await connectDatabase(process.env.databasebURI);
-    databaseClient = getDatabaseConnection();
-    const databaseResponse = await databaseClient
-      .collection("Mobile")
-      .find();
-    await databaseResponse.forEach(device => {
-      devices.push(device);
-    });
-    const json = JSON.parse(JSON.stringify(devices));
-    console.log(json);
-  } catch (err) {
-    console.log("", err);
-  }
-};
-
-DatabaseManage();
+await connectDatabase(process.env.databasebURI);
+databaseClient = await getDatabaseConnection();
 
 // Get all devices that belongs to a specific room
 /*
@@ -45,7 +28,18 @@ RESPONSE:
   }, etc,..
 ]
 */
-app.get("/api/v1/room/:id", (req, res) => {});
+app.get("/api/v1/room/:id", async (req, res) => {
+  let roomID = req.params.id || "";
+  let documentArr = [];
+  await databaseClient
+    .collection("Device")
+    .find({ room: roomID })
+    .forEach(document => {
+      console.log(document);
+      documentArr.push(document);
+    });
+  res.send(documentArr);
+});
 
 // Get all available schedule(s) belongs to a specific room
 /*
