@@ -25,7 +25,7 @@ router.route("/").post(addSchedule);
 
 // Update schedule to database
 /*
-  REQUEST PUT: /api/v1/schedules/{scheduleID}
+  REQUEST PUT: /api/v1/schedules/{scheduleID: <string>}
   [
     {
       _id: <string>,
@@ -43,7 +43,7 @@ router.route("/:id").put(updateSchedule);
 
 // Delete schedule from database
 /*
-  REQUEST DELETE: /api/v1/schedules/{scheduleID}
+  REQUEST DELETE: /api/v1/schedules/{scheduleID: <string>3}
   [
     {
       _id: <string>,

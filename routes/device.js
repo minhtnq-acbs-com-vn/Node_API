@@ -7,7 +7,7 @@ const router = express.Router();
 // Means that device yet to have a config, auto config
 // Set to database then sent the config back as a response
 /*
-  REQUEST GET: /api/v1/device/{deviceID}:{roomName}:{module}
+  REQUEST GET: /api/v1/device/{deviceID: <string>}:{roomName: <string>}:{module: <string>}
   RESPONSE: 
   {
     "ack": { "door": " ", "pir": "" },

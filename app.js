@@ -9,6 +9,7 @@ import { router as roomRouter } from "./routes/room.js";
 import { router as schedulerRouter } from "./routes/scheduler.js";
 import { router as schedulesRouter } from "./routes/schedules.js";
 import { router as yolov5Router } from "./routes/yolov5.js";
+import { errorHandler } from "./middleware/error.js";
 dotenv.config({ path: "./config/config.env" });
 
 const app = express();
@@ -25,6 +26,12 @@ app.use("/api/v1/room", roomRouter);
 app.use("/api/v1/scheduler", schedulerRouter);
 app.use("/api/v1/schedules", schedulesRouter);
 app.use("/api/v1/yolov5", yolov5Router);
+
+app.use(errorHandler);
+
+app.use("*", (req, res) => {
+  res.json({ message: "Invalid Route" });
+});
 
 app.listen(process.env.port, () => {
   console.log("Server is running on: ", process.env.port);

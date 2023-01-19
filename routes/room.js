@@ -4,7 +4,7 @@ const router = express.Router();
 
 // Get all devices that belongs to a specific room
 /*
-REQUEST GET: /api/v1/room/device/{roomName}
+REQUEST GET: /api/v1/room/device/{roomName: <string>}
 RESPONSE: 
 [
   {
@@ -21,20 +21,20 @@ router.route("/device/:id").get(getRoomDevices);
 
 // Get all available schedule(s) belongs to a specific room
 /*
-    REQUEST GET: /api/v1/room/schedules/{roomName}
-    RESPONSE: 
-    [
-      {
-        _id: <string>,
-        deviceID: <string>,
-        deviceModule: <string>,
-        room: <string>,
-        timeOn: <string>,
-        timeOff: <string>,
-        repeat: <string>
-      }, etc,..
-    ]
-    */
+REQUEST GET: /api/v1/room/schedules/{roomName: <string>}
+RESPONSE: 
+[
+  {
+    _id: <string>,
+    deviceID: <string>,
+    deviceModule: <string>,
+    room: <string>,
+    timeOn: <string>,
+    timeOff: <string>,
+    repeat: <string>
+  }, etc,..
+]
+*/
 router.route("/schedules/:id").get(getRoomSchedules);
 
 export { router };

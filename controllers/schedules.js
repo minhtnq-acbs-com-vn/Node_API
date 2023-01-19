@@ -1,7 +1,8 @@
-import { getDatabaseConnection } from "../database.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { dbRead } from "../utils/databaseManage.js";
 
-const addSchedule = (req, res, next) => {};
-const updateSchedule = (req, res, next) => {};
-const deleteSchedule = (req, res, next) => {};
+const addSchedule = asyncHandler(async (req, res, next) => {});
+const updateSchedule = asyncHandler(async (req, res, next) => {});
+const deleteSchedule = asyncHandler(async (req, res, next) => {});
 
 export { addSchedule, updateSchedule, deleteSchedule };
