@@ -22,8 +22,33 @@ const scheduleSchema = Joi.object({
   repeat: Joi.string().required(),
 });
 
+const deviceSchema = Joi.object({
+  deviceName: Joi.string().required(),
+  roomName: Joi.string().required(),
+  deviceModule: Joi.string().required(),
+  topic: {
+    subscribe: Joi.string().required(),
+    ack: Joi.string().required(),
+    publish: Joi.string().required(),
+  },
+  ack: {
+    door: Joi.string().required(),
+    pir: Joi.string().required(),
+  },
+  request: {
+    door: Joi.string().required(),
+    pir: Joi.string().required(),
+    api: Joi.string().required(),
+  },
+  pin: {
+    door: Joi.number().required(),
+    pir: Joi.number().required(),
+  },
+});
+
 const validateCreateConfig = validator(createConfigSchema);
 const validateUpdateConfig = validator(updateConfigSchema);
 const validateSchedule = validator(scheduleSchema);
+const validateDevice = validator(deviceSchema);
 
-export { validateCreateConfig, validateUpdateConfig, validateSchedule };
+export { validateCreateConfig, validateUpdateConfig, validateSchedule, validateDevice };
