@@ -21,7 +21,7 @@ const addDevice = asyncHandler(async (req, res, next) => {
       .status(200)
       .json({ success: false, message: "ID already exists" });
   await dbWrite("Device", req.body);
-  res.json({ success: true });
+  res.status(200).json({ success: true });
 });
 
 export { getDevice, addDevice };
