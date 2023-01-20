@@ -13,7 +13,17 @@ const updateConfigSchema = Joi.object({
   loopTime: Joi.number().required(),
 });
 
+const scheduleSchema = Joi.object({
+  deviceID: Joi.string().required(),
+  deviceModule: Joi.string().required(),
+  room: Joi.string().required(),
+  timeOn: Joi.number().required(),
+  timeOff: Joi.number().required(),
+  repeat: Joi.string().required(),
+});
+
 const validateCreateConfig = validator(createConfigSchema);
 const validateUpdateConfig = validator(updateConfigSchema);
+const validateSchedule = validator(scheduleSchema);
 
-export { validateCreateConfig, validateUpdateConfig };
+export { validateCreateConfig, validateUpdateConfig, validateSchedule };

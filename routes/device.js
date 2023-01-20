@@ -14,7 +14,7 @@ const router = express.Router();
     "request": { "door": "", "pir": "", "api": "" },
     "pin": { "door": "", "pir":  ""}
   }
-  */
+*/
 router.route("/:id").get(getDevice);
 
 // Init device information to database (not found device config use case)
@@ -29,7 +29,7 @@ router.route("/:id").get(getDevice);
     pin: [<int>, <int>]
   }
   RESPONSE: { success: true }
-  */
+*/
 router.route("/").post(addDevice);
 
 export { router };

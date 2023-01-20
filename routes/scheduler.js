@@ -6,7 +6,7 @@ const router = express.Router();
 /*
   REQUEST GET: /api/v1/scheduler
   RESPONSE: [ { _id: '63bd16a33f437f2abf05319a', subscribe: '', public: '' } ]
-  */
+*/
 router.route("/").get(getScheduler);
 
 export { router };

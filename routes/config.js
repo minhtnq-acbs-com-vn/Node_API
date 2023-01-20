@@ -13,26 +13,23 @@ const router = express.Router();
   [
     { deviceID: <string>, room: <string>, loopTime: <int> }
   ]
-  */
+*/
 router.route("/:id").get(getDeviceConfig);
 
 // Add config of a specific device to database
 /*
-    REQUEST POST: /api/v1/config/
-    { deviceID: <string>, room: <string>, loopTime: <int> }
-
-    RESPONSE: {success: true}
-    */
+  REQUEST POST: /api/v1/config/
+  { deviceID: <string>, room: <string>, loopTime: <int> }
+  RESPONSE: {success: true}
+*/
 router.route("/").post(addDeviceConfig);
 
 // Update config of a specific device to database
 /*
-    REQUEST PUT: /api/v1/config/{deviceID: <string>}
-    
-      { loopTime: <int> }
-    
-    RESPONSE: {success: true}
-    */
+  REQUEST PUT: /api/v1/config/{deviceID: <string>}
+  { loopTime: <int> }
+  RESPONSE: {success: true}
+*/
 router.route("/:id").put(updateDeviceConfig);
 
 export { router };

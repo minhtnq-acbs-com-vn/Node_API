@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import { getDatabaseConnection } from "../database.js";
 
 const dbRead = async (collection, key = null) => {
@@ -20,8 +21,17 @@ const dbWrite = async (collection, obj) => {
 
 const dbUpdate = async (collection, filter, updated) => {
   let db = await getDatabaseConnection();
-  let result = await db.collection(collection).updateOne(filter, {$set:updated});
+  let result = await db
+    .collection(collection)
+    .updateOne(filter, { $set: updated });
   return result;
 };
 
-export { dbRead, dbWrite, dbUpdate };
+const dbDelete = async (collection, id) => {
+  if (!ObjectId.isValid(id)) return null;
+  let db = await getDatabaseConnection();
+  let result = await db.collection(collection).deleteOne({ _id: ObjectId(id) });
+  return result;
+};
+
+export { dbRead, dbWrite, dbUpdate, dbDelete };

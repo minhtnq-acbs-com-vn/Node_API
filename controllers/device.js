@@ -1,8 +1,9 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { dbRead } from "../utils/databaseManage.js";
+import { dbRead, dbWrite } from "../utils/databaseManage.js";
 
 const getDevice = asyncHandler(async (req, res, next) => {
-  res.status(200).json("Got your id"); // Must have;
+  
+  res.status(200); // Must have;
 });
 
 const addDevice = asyncHandler(async (req, res, next) => {

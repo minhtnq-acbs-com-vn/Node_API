@@ -6,7 +6,7 @@ const router = express.Router();
 /*
   REQUEST GET: /api/v1/mobile
   RESPONSE: [ { _id: <string>, subscribe: <string>, public: <string> } ]
-  */
+*/
 router.route("/").get(getMobile);
 
 export { router };
