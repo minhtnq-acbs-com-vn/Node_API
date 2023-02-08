@@ -46,9 +46,22 @@ const deviceSchema = Joi.object({
   },
 });
 
+const yolov5Schema = Joi.object({
+  subscribe: Joi.string().required(),
+  publish: Joi.string().required(),
+  room: Joi.string().required(),
+});
+
 const validateCreateConfig = validator(createConfigSchema);
 const validateUpdateConfig = validator(updateConfigSchema);
 const validateSchedule = validator(scheduleSchema);
 const validateDevice = validator(deviceSchema);
+const validateYolov5 = validator(yolov5Schema);
 
-export { validateCreateConfig, validateUpdateConfig, validateSchedule, validateDevice };
+export {
+  validateCreateConfig,
+  validateUpdateConfig,
+  validateSchedule,
+  validateDevice,
+  validateYolov5,
+};
