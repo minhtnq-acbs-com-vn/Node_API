@@ -24,7 +24,7 @@ const scheduleSchema = Joi.object({
 
 const deviceSchema = Joi.object({
   deviceName: Joi.string().required(),
-  roomName: Joi.string().required(),
+  room: Joi.string().required(),
   deviceModule: Joi.string().required(),
   topic: {
     subscribe: Joi.string().required(),

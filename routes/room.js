@@ -9,6 +9,7 @@ const router = express.Router();
 // Get all room(s)
 /*
 REQUEST GET: /api/v1/room
+RESPONSE: ["room1", "room2", etc...]
 */
 router.route("/").get(getAllRooms);
 
