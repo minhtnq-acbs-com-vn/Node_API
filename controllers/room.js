@@ -1,6 +1,17 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { dbRead } from "../utils/databaseManage.js";
 
+const getAllRooms = asyncHandler(async (req, res, next) => {
+  let documents = await dbRead("Device");
+  if (documents.length < 1) throw new Error(`Cant find any room`);
+  let roomArr = [];
+  for (let i = 0; i < documents.length; i++) {
+    const element = documents[i];
+    roomArr.push(element["roomName"]);
+  }
+  res.status(200).json(roomArr);
+});
+
 const getRoomDevices = asyncHandler(async (req, res, next) => {
   let roomID = req.params.id;
   let documents = await dbRead("Device", { room: roomID });
@@ -15,4 +26,4 @@ const getRoomSchedules = asyncHandler(async (req, res, next) => {
   res.status(200).json(documents);
 });
 
-export { getRoomDevices, getRoomSchedules };
+export { getAllRooms, getRoomDevices, getRoomSchedules };

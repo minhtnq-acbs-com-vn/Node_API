@@ -1,6 +1,16 @@
 import express from "express";
-import { getRoomDevices, getRoomSchedules } from "../controllers/room.js";
+import {
+  getAllRooms,
+  getRoomDevices,
+  getRoomSchedules,
+} from "../controllers/room.js";
 const router = express.Router();
+
+// Get all room(s)
+/*
+REQUEST GET: /api/v1/room/device/{roomName: <string>} 
+*/
+router.route("/").get(getAllRooms);
 
 // Get all devices that belongs to a specific room
 /*
