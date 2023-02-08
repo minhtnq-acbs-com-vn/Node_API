@@ -14,7 +14,6 @@ const addYolov5 = asyncHandler(async (req, res, next) => {
   if (error) throw new Error(`${error.details[0].message}`);
   let yolov5Data = req.body;
   let roomID = yolov5Data.room;
-  console.log(yolov5Data, roomID);
   let documents = await dbRead("Yolov5", { room: roomID });
   if (documents.length > 0)
     return res
