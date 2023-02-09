@@ -7,7 +7,7 @@ const getAllRooms = asyncHandler(async (req, res, next) => {
   let roomArr = [];
   for (let i = 0; i < documents.length; i++) {
     const element = documents[i];
-    roomArr.push(element["roomName"]);
+    roomArr.push(element["room"]);
   }
   res.status(200).json(roomArr);
 });
