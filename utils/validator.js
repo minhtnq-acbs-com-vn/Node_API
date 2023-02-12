@@ -17,8 +17,8 @@ const scheduleSchema = Joi.object({
   deviceID: Joi.string().required(),
   deviceModule: Joi.string().required(),
   room: Joi.string().required(),
-  timeOn: Joi.number().required(),
-  timeOff: Joi.number().required(),
+  timeOn: Joi.string().required(),
+  timeOff: Joi.string().required(),
   repeat: Joi.string().required(),
 });
 

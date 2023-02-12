@@ -21,7 +21,7 @@ const getRoomDevices = asyncHandler(async (req, res, next) => {
 
 const getRoomSchedules = asyncHandler(async (req, res, next) => {
   let roomID = req.params.id;
-  let documents = await dbRead("Device", { room: roomID });
+  let documents = await dbRead("Schedules", { room: roomID });
   if (documents.length < 1) throw new Error(`Can't find ${roomID} in Room`);
   res.status(200).json({documents});
 });
