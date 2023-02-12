@@ -11,7 +11,7 @@ const router = express.Router();
   REQUEST GET: /api/v1/config/{deviceName: <string>}
   RESPONSE: 
   [
-    { deviceID: <string>, room: <string>, loopTime: <int> }
+    { deviceName: <string>, room: <string>, loopTime: <int> }
   ]
 */
 router.route("/:id").get(getDeviceConfig);
@@ -19,7 +19,7 @@ router.route("/:id").get(getDeviceConfig);
 // Add config of a specific device to database
 /*
   REQUEST POST: /api/v1/config/
-  { deviceID: <string>, room: <string>, loopTime: <int> }
+  { deviceName: <string>, room: <string>, loopTime: <int> }
   RESPONSE: {success: true}
 */
 router.route("/").post(addDeviceConfig);
