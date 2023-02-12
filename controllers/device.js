@@ -1,6 +1,5 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { dbRead, dbWrite } from "../utils/databaseManage.js";
-import { validateDevice } from "../utils/validator.js";
 
 const getDevice = asyncHandler(async (req, res, next) => {
   let deviceID = req.params.id;
@@ -12,8 +11,6 @@ const getDevice = asyncHandler(async (req, res, next) => {
 });
 
 const addDevice = asyncHandler(async (req, res, next) => {
-  const { error } = validateDevice(req.body);
-  if (error) throw new Error(`${error.details[0].message}`);
   let deviceData = req.body;
   console.log(`Got device data:${deviceData}`);
   let deviceID = deviceData.deviceName;
