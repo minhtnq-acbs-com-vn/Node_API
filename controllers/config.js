@@ -16,7 +16,7 @@ const getDeviceConfig = asyncHandler(async (req, res, next) => {
 const addDeviceConfig = asyncHandler(async (req, res, next) => {
   const { error } = validateCreateConfig(req.body);
   if (error) throw new Error(`${error.details[0].message}`);
-  let deviceName = req.body.deviceID;
+  let deviceName = req.body.deviceName;
   let documents = await dbRead("Config", { deviceName: deviceName });
   if (documents.length > 0) throw new Error(`ID:${deviceName} already exists`);
   let result = await dbWrite("Config", req.body);
