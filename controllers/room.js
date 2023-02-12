@@ -9,21 +9,21 @@ const getAllRooms = asyncHandler(async (req, res, next) => {
     const element = documents[i];
     roomArr.push(element["room"]);
   }
-  res.status(200).json({roomArr});
+  res.status(200).json({ roomArr });
 });
 
 const getRoomDevices = asyncHandler(async (req, res, next) => {
   let roomID = req.params.id;
   let documents = await dbRead("Device", { room: roomID });
   if (documents.length < 1) throw new Error(`Can't find ${roomID} in Room`);
-  res.status(200).json({documents});
+  res.status(200).json(documents);
 });
 
 const getRoomSchedules = asyncHandler(async (req, res, next) => {
   let roomID = req.params.id;
   let documents = await dbRead("Schedules", { room: roomID });
   if (documents.length < 1) throw new Error(`Can't find ${roomID} in Room`);
-  res.status(200).json({documents});
+  res.status(200).json(documents);
 });
 
 export { getAllRooms, getRoomDevices, getRoomSchedules };

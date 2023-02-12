@@ -10,7 +10,7 @@ const getDeviceConfig = asyncHandler(async (req, res, next) => {
   let documents = await dbRead("Config", { deviceName: deviceName });
   if (documents.length < 1)
     throw new Error(`Can't find ${deviceName} in Config`);
-  res.status(200).json({ documents });
+  res.status(200).json(documents);
 });
 
 const addDeviceConfig = asyncHandler(async (req, res, next) => {
