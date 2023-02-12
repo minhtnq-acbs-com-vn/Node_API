@@ -9,7 +9,7 @@ const getAllRooms = asyncHandler(async (req, res, next) => {
     const element = documents[i];
     roomArr.push(element["room"]);
   }
-  let uniqueRoom = roomArr.filter((c, i) =>roomArr.indexOf(c) === i );
+  let uniqueRoom = roomArr.filter((c, i) => roomArr.indexOf(c) === i);
   res.status(200).json({ uniqueRoom });
 });
 
