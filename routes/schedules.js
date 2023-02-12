@@ -10,12 +10,14 @@ const router = express.Router();
 /*
   REQUEST POST: /api/v1/schedules
   {
-    deviceID: <string>,
+    deviceName: <string>,
     deviceModule: <string>,
     room: <string>,
     timeOn: <string>,
     timeOff: <string>,
-    repeat: <string>
+    repeat: <string>,
+    dayOfTheWeek: <string>,
+    request: <string>,
   }
   RESPONSE: {success: true}
 */
@@ -25,12 +27,11 @@ router.route("/").post(addSchedule);
 /*
   REQUEST PUT: /api/v1/schedules/{scheduleID: <string>}
   {
-    deviceID: <string>,
-    deviceModule: <string>,
-    room: <string>,
-    timeOn: <int>,
-    timeOff: <int>,
-    repeat: <string>
+    timeOn: <string>,
+    timeOff: <string>,
+    repeat: <string>,
+    dayOfTheWeek: <string>,
+    request: <string>,
   }
   RESPONSE: {success: true}
 */

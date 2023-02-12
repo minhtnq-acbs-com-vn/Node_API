@@ -5,11 +5,14 @@ import {
   dbUpdate,
   dbDelete,
 } from "../utils/databaseManage.js";
-import { validateSchedule } from "../utils/validator.js";
+import {
+  validateCreateSchedule,
+  validateUpdateSchedule,
+} from "../utils/validator.js";
 import { ObjectId } from "mongodb";
 
 const addSchedule = asyncHandler(async (req, res, next) => {
-  const { error } = validateSchedule(req.body);
+  const { error } = validateCreateSchedule(req.body);
   if (error) throw new Error(`${error.details[0].message}`);
   let result = await dbWrite("Schedules", req.body);
   if (result.acknowledged !== true)
@@ -18,7 +21,7 @@ const addSchedule = asyncHandler(async (req, res, next) => {
 });
 
 const updateSchedule = asyncHandler(async (req, res, next) => {
-  const { error } = validateSchedule(req.body);
+  const { error } = validateUpdateSchedule(req.body);
   if (error) throw new Error(`${error.details[0].message}`);
   let schedulesID = req.params.id;
   let newSchedule = req.body;
@@ -26,18 +29,13 @@ const updateSchedule = asyncHandler(async (req, res, next) => {
     throw new Error(`ID:${schedulesID} is invalid`);
   let documents = await dbRead("Schedules", { _id: ObjectId(schedulesID) });
   if (documents.length < 1) throw new Error(`ID:${schedulesID} dont exists`);
-  let result = await dbUpdate(
-    "Schedules",
-    { _id: ObjectId(schedulesID) },
-    {
-      deviceID: newSchedule.deviceID,
-      deviceModule: newSchedule.deviceModule,
-      room: newSchedule.room,
-      timeOn: newSchedule.timeOn,
-      timeOff: newSchedule.timeOff,
-      repeat: newSchedule.repeat,
-    }
-  );
+  let result = await dbUpdate("Schedules", {
+    timeOn: newSchedule.timeOn,
+    timeOff: newSchedule.timeOff,
+    repeat: newSchedule.repeat,
+    dayOfTheWeek: newSchedule.dayOfTheWeek,
+    request: newSchedule.request,
+  });
   if (result.acknowledged !== true)
     throw new Error("Something wrong with database");
   res.status(200).json({ success: true });

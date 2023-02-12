@@ -30,12 +30,13 @@ const updateDeviceConfig = asyncHandler(async (req, res, next) => {
   if (error) throw new Error(`${error.details[0].message}`);
   let deviceName = req.params.id;
   let loopTime = req.body.loopTime;
+  let request = req.body.request;
   let documents = await dbRead("Config", { deviceName: deviceName });
   if (documents.length < 1) throw new Error(`ID:${deviceName} dont exists`);
   let result = await dbUpdate(
     "Config",
-    { deviceName: deviceName },
-    { loopTime: loopTime }
+    { loopTime: loopTime },
+    { request: request }
   );
   if (result.acknowledged !== true)
     throw new Error("Something wrong with database");
