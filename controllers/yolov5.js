@@ -1,6 +1,5 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { dbRead, dbWrite } from "../utils/databaseManage.js";
-import { validateYolov5 } from "../utils/validator.js";
 
 const getYolov5 = asyncHandler(async (req, res, next) => {
   let roomID = req.params.id;
@@ -10,8 +9,6 @@ const getYolov5 = asyncHandler(async (req, res, next) => {
 });
 
 const addYolov5 = asyncHandler(async (req, res, next) => {
-  const { error } = validateYolov5(req.body);
-  if (error) throw new Error(`${error.details[0].message}`);
   let yolov5Data = req.body;
   let roomID = yolov5Data.room;
   let documents = await dbRead("Yolov5", { room: roomID });

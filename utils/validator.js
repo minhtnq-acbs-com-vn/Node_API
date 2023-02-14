@@ -34,22 +34,14 @@ const updateScheduleSchema = Joi.object({
   request: Joi.string().required(),
 });
 
-const yolov5Schema = Joi.object({
-  subscribe: Joi.string().required(),
-  publish: Joi.string().required(),
-  room: Joi.string().required(),
-});
-
 const validateCreateConfig = validator(createConfigSchema);
 const validateUpdateConfig = validator(updateConfigSchema);
 const validateCreateSchedule = validator(createScheduleSchema);
 const validateUpdateSchedule = validator(updateScheduleSchema);
-const validateYolov5 = validator(yolov5Schema);
 
 export {
   validateCreateConfig,
   validateUpdateConfig,
   validateCreateSchedule,
   validateUpdateSchedule,
-  validateYolov5,
 };
