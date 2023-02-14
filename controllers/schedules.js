@@ -23,18 +23,16 @@ const addSchedule = asyncHandler(async (req, res, next) => {
 const updateSchedule = asyncHandler(async (req, res, next) => {
   const { error } = validateUpdateSchedule(req.body);
   if (error) throw new Error(`${error.details[0].message}`);
-  let schedulesID = req.params.id;
-  let newSchedule = req.body;
-  if (!ObjectId.isValid(schedulesID))
-    throw new Error(`ID:${schedulesID} is invalid`);
-  let documents = await dbRead("Schedules", { _id: ObjectId(schedulesID) });
-  if (documents.length < 1) throw new Error(`ID:${schedulesID} dont exists`);
+  if (!ObjectId.isValid(req.params.id))
+    throw new Error(`ID:${req.params.id} is invalid`);
+  let documents = await dbRead("Schedules", { _id: ObjectId(req.params.id) });
+  if (documents.length < 1) throw new Error(`ID:${req.params.id} dont exists`);
   let result = await dbUpdate("Schedules", {
-    timeOn: newSchedule.timeOn,
-    timeOff: newSchedule.timeOff,
-    repeat: newSchedule.repeat,
-    dayOfTheWeek: newSchedule.dayOfTheWeek,
-    request: newSchedule.request,
+    timeOn: req.body.timeOn,
+    timeOff: req.body.timeOff,
+    repeat: req.body.repeat,
+    dayOfTheWeek: req.body.dayOfTheWeek,
+    request: req.body.request,
   });
   if (result.acknowledged !== true)
     throw new Error("Something wrong with database");
@@ -42,8 +40,7 @@ const updateSchedule = asyncHandler(async (req, res, next) => {
 });
 
 const deleteSchedule = asyncHandler(async (req, res, next) => {
-  let schedulesID = req.params.id;
-  let result = await dbDelete("Schedules", schedulesID);
+  let result = await dbDelete("Schedules", req.params.id);
   if (result == null || result.deletedCount !== 1)
     throw new Error(`ID:${schedulesID} is invalid to delete`);
   res.status(200).json({ success: true });
