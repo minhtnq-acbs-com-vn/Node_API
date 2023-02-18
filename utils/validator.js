@@ -4,10 +4,8 @@ const validator = schema => payload =>
   schema.validate(payload, { abortEarly: false });
 
 const createConfigSchema = Joi.object({
-  deviceName: Joi.string().required(),
   room: Joi.string().required(),
   loopTime: Joi.number().required(),
-  request: Joi.string().required(),
 });
 
 const createScheduleSchema = Joi.object({

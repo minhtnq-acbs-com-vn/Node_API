@@ -4,10 +4,10 @@ const router = express.Router();
 
 // Get config of one specific device
 /*
-  REQUEST GET: /api/v1/config/{deviceName: <string>}
+  REQUEST GET: /api/v1/config/{roomName: <string>}
   RESPONSE:
   [
-    { deviceName: <string>, room: <string>, loopTime: <int> }
+    { room: <string>, loopTime: <int> }
   ]
 */
 router.route("/:id").get(getDeviceConfig);
@@ -16,10 +16,8 @@ router.route("/:id").get(getDeviceConfig);
 /*
   REQUEST POST: /api/v1/config/
   {
-    deviceName: <string>,
     room: <string>,
     loopTime: <string>,
-    request: <string>,
   }
   RESPONSE: {success: true}
 */

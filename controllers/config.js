@@ -3,7 +3,7 @@ import { dbRead, dbWrite, dbDelete } from "../utils/databaseManage.js";
 import { validateCreateConfig } from "../utils/validator.js";
 
 const getDeviceConfig = asyncHandler(async (req, res, next) => {
-  let documents = await dbRead("Config", { deviceName: req.params.id });
+  let documents = await dbRead("Config", { room: req.params.id });
   if (documents.length < 1)
     throw new Error(`Can't find ${deviceName} in Config`);
   res.status(200).json(documents);
@@ -12,7 +12,7 @@ const getDeviceConfig = asyncHandler(async (req, res, next) => {
 const addDeviceConfig = asyncHandler(async (req, res, next) => {
   const { error } = validateCreateConfig(req.body);
   if (error) throw new Error(`${error.details[0].message}`);
-  let documents = await dbRead("Config", { deviceName: req.body.deviceName });
+  let documents = await dbRead("Config", { room: req.body.room });
   if (documents.length > 0) {
     let result = await dbDelete("Config", documents[0]["_id"]);
     if (result == null || result.deletedCount !== 1)
