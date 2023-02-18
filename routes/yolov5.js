@@ -1,6 +1,13 @@
 import express from "express";
-import { getYolov5, addYolov5 } from "../controllers/yolov5.js";
+import { getAllYolov5, getYolov5, addYolov5 } from "../controllers/yolov5.js";
 const router = express.Router();
+
+// Get all yolov5
+/*
+  REQUEST GET: /api/v1/yolov5
+  RESPONSE: [ { subscribe: '', public: '' } ]
+*/
+router.route("/").get(getAllYolov5);
 
 // Get yolov5 topics, this way the topics is synchronized between relationships
 /*
