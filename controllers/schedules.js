@@ -11,6 +11,13 @@ import {
 } from "../utils/validator.js";
 import { ObjectId } from "mongodb";
 
+const getAllSchedule = asyncHandler(async (req, res, next) => {
+  let documents = await dbRead("Schedules");
+  if (documents.length < 1)
+    throw new Error(`Can't find ${req.params.id} in Config`);
+  res.status(200).json(documents);
+});
+
 const addSchedule = asyncHandler(async (req, res, next) => {
   const { error } = validateCreateSchedule(req.body);
   if (error) throw new Error(`${error.details[0].message}`);
@@ -46,4 +53,4 @@ const deleteSchedule = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true });
 });
 
-export { addSchedule, updateSchedule, deleteSchedule };
+export { getAllSchedule, addSchedule, updateSchedule, deleteSchedule };

@@ -1,10 +1,21 @@
 import express from "express";
 import {
+  getAllSchedule,
   addSchedule,
   updateSchedule,
   deleteSchedule,
 } from "../controllers/schedules.js";
 const router = express.Router();
+
+// Get all schedule
+/*
+  REQUEST GET: /api/v1/schedule/
+  RESPONSE:
+  [
+    { room: <string>, loopTime: <int> }
+  ]
+*/
+router.route("/").get(getAllSchedule);
 
 // Add schedule to database
 /*

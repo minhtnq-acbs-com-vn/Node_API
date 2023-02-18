@@ -1,6 +1,20 @@
 import express from "express";
-import { getDeviceConfig, addDeviceConfig } from "../controllers/config.js";
+import {
+  getAllConfig,
+  getDeviceConfig,
+  addDeviceConfig,
+} from "../controllers/config.js";
 const router = express.Router();
+
+// Get all config
+/*
+  REQUEST GET: /api/v1/config/
+  RESPONSE:
+  [
+    { room: <string>, loopTime: <int> }
+  ]
+*/
+router.route("/").get(getAllConfig);
 
 // Get config of one specific device
 /*
