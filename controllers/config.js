@@ -5,7 +5,7 @@ import { validateCreateConfig } from "../utils/validator.js";
 const getDeviceConfig = asyncHandler(async (req, res, next) => {
   let documents = await dbRead("Config", { room: req.params.id });
   if (documents.length < 1)
-    throw new Error(`Can't find ${deviceName} in Config`);
+    throw new Error(`Can't find ${req.params.id} in Config`);
   res.status(200).json(documents[0]);
 });
 
