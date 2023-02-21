@@ -2,7 +2,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { dbRead, dbWrite } from "../utils/databaseManage.js";
 
 const getAllYolov5 = asyncHandler(async (req, res, next) => {
-  let documents = await dbRead("Yolov5");
+  let documents = await dbRead("Yolov5", {});
   if (documents.length < 1) throw new Error(`Lost default document`);
   res.status(200).json(documents);
 });
