@@ -11,10 +11,24 @@ import {
 } from "../utils/validator.js";
 import { ObjectId } from "mongodb";
 
+const getSchedule = asyncHandler(async (req, res, next) => {
+  let roomName = req.params.id.slice(0, req.params.id.indexOf(":"));
+  let module = req.params.id.slice(req.params.id.indexOf(":") + 1);
+  console.log(roomName);
+  console.log(module);
+  let documents = await dbRead("Schedules", {
+    room: roomName,
+    deviceModule: module,
+  });
+  if (documents.length < 1)
+    throw new Error(`Can't find ${req.params.id} in Schedules`);
+  res.status(200).json(documents);
+});
+
 const getAllSchedule = asyncHandler(async (req, res, next) => {
   let documents = await dbRead("Schedules");
   if (documents.length < 1)
-    throw new Error(`Can't find ${req.params.id} in Config`);
+    throw new Error(`Can't find ${req.params.id} in Schedules`);
   res.status(200).json(documents);
 });
 
@@ -53,4 +67,10 @@ const deleteSchedule = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true });
 });
 
-export { getAllSchedule, addSchedule, updateSchedule, deleteSchedule };
+export {
+  getSchedule,
+  getAllSchedule,
+  addSchedule,
+  updateSchedule,
+  deleteSchedule,
+};

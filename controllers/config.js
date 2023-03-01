@@ -4,8 +4,7 @@ import { validateCreateConfig } from "../utils/validator.js";
 
 const getAllConfig = asyncHandler(async (req, res, next) => {
   let documents = await dbRead("Config");
-  if (documents.length < 1)
-    throw new Error(`Can't find ${req.params.id} in Config`);
+  if (documents.length < 1) throw new Error(`Config is empty`);
   res.status(200).json(documents);
 });
 

@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  getSchedule,
   getAllSchedule,
   addSchedule,
   updateSchedule,
@@ -9,13 +10,23 @@ const router = express.Router();
 
 // Get all schedule
 /*
-  REQUEST GET: /api/v1/schedule/
+  REQUEST GET: /api/v1/schedules/
   RESPONSE:
   [
     { room: <string>, loopTime: <int> }
   ]
 */
 router.route("/").get(getAllSchedule);
+
+// Get schedule by room and module
+/*
+  REQUEST GET: /api/v1/schedules/:id
+  RESPONSE:
+  [
+    { room: <string>, loopTime: <int> }
+  ]
+*/
+router.route("/:id").get(getSchedule);
 
 // Add schedule to database
 /*
