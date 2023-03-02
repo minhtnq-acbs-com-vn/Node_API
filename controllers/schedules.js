@@ -12,13 +12,8 @@ import {
 import { ObjectId } from "mongodb";
 
 const getSchedule = asyncHandler(async (req, res, next) => {
-  let roomName = req.params.id.slice(0, req.params.id.indexOf(":"));
-  let module = req.params.id.slice(req.params.id.indexOf(":") + 1);
-  console.log(roomName);
-  console.log(module);
   let documents = await dbRead("Schedules", {
-    room: roomName,
-    deviceModule: module,
+    _id: ObjectId(req.params.id),
   });
   if (documents.length < 1)
     throw new Error(`Can't find ${req.params.id} in Schedules`);
@@ -38,7 +33,7 @@ const addSchedule = asyncHandler(async (req, res, next) => {
   let result = await dbWrite("Schedules", req.body);
   if (result.acknowledged !== true)
     throw new Error("Something wrong with database");
-  res.status(200).json({ success: true });
+  res.status(200).json({ success: true, result: result.insertedId });
 });
 
 const updateSchedule = asyncHandler(async (req, res, next) => {
@@ -48,15 +43,20 @@ const updateSchedule = asyncHandler(async (req, res, next) => {
     throw new Error(`ID:${req.params.id} is invalid`);
   let documents = await dbRead("Schedules", { _id: ObjectId(req.params.id) });
   if (documents.length < 1) throw new Error(`ID:${req.params.id} dont exists`);
-  let result = await dbUpdate("Schedules", {
-    timeOn: req.body.timeOn,
-    timeOff: req.body.timeOff,
-    repeat: req.body.repeat,
-    dayOfTheWeek: req.body.dayOfTheWeek,
-    request: req.body.request,
-  });
+  let result = await dbUpdate(
+    "Schedules",
+    { _id: ObjectId(req.params.id) },
+    {
+      timeOn: req.body.timeOn,
+      timeOff: req.body.timeOff,
+      repeat: req.body.repeat,
+      dayOfTheWeek: req.body.dayOfTheWeek,
+      request: req.body.request,
+    }
+  );
   if (result.acknowledged !== true)
     throw new Error("Something wrong with database");
+  console.log(result);
   res.status(200).json({ success: true });
 });
 
