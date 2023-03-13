@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import { connectDatabase } from "./database.js";
+import { router as userRouter } from "./routes/user.js";
+import { validateToken } from "./middleware/jwt.js";
 import { router as configRouter } from "./routes/config.js";
 import { router as deviceRouter } from "./routes/device.js";
 import { router as mobileRouter } from "./routes/mobile.js";
@@ -18,6 +20,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 connectDatabase(process.env.databasebURI).catch(console.error);
+
+app.use("/api/v1/user", userRouter);
+
+// app.use(validateToken);
 
 app.use("/api/v1/config", configRouter);
 app.use("/api/v1/device", deviceRouter);
