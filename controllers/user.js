@@ -4,7 +4,7 @@ import { generateToken } from "../middleware/jwt.js";
 
 const login = asyncHandler(async (req, res, next) => {
   let documents = await dbRead("Users", { email: req.body.email });
-  if (documents.length < 1) throw new Error(`Users is empty`);
+  if (documents.length < 1) throw new Error("Invalid email || password");
   if (documents[0].password !== req.body.password)
     throw new Error("Invalid email || password");
   res.status(200).json(
