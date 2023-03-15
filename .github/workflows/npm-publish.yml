@@ -15,13 +15,14 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
+      - run: ls -a
           
       - name: rsync deployments
         uses: burnett01/rsync-deployments@5.2.1
         with:
           switches: -avzr --delete --exclude-from='deployexclude'
           path: ./
-          remote_path: ./node/
+          remote_path: ./api/Node_API/
           remote_host: ${{ secrets.AWS_HOST }}
           remote_user: ${{ secrets.AWS_UNAME }}
           remote_key: ${{ secrets.AWS_PRIVATEKEY }}
