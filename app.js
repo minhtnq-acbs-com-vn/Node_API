@@ -36,7 +36,7 @@ app.use("/api/v1/yolov5", yolov5Router);
 app.use(errorHandler);
 
 app.use("*", (req, res) => {
-  res.json({ message: "Invalid Route" });
+  res.json({ message: "Invalid Route(s)" });
 });
 
 app.listen(process.env.port, () => {
