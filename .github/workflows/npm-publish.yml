@@ -35,7 +35,7 @@ jobs:
           username: ${{ secrets.AWS_UNAME }}
           key: ${{ secrets.AWS_PRIVATEKEY }}
           script: |
-            cd api/Node_API/
+            cd ./api/Node_API/
             npm install
             pm2 delete app
             pm2 start "npm start" --name app --watch
