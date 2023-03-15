@@ -14,8 +14,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
-      - run: ls -a
+          cache: "npm"          
           
       - name: rsync deployments
         uses: burnett01/rsync-deployments@5.2.1
@@ -36,6 +35,8 @@ jobs:
           key: ${{ secrets.AWS_PRIVATEKEY }}
           script: |
             cd ./api/Node_API/
+            mkdir config
+            echo "${{ secrets.AWS_ENV }}" > ./config/config.env
             npm install
             pm2 delete app
             pm2 start "npm start" --name app --watch
