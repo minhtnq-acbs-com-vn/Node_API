@@ -26,7 +26,7 @@ jobs:
           remote_host: ${{ secrets.AWS_HOST }}
           remote_user: ${{ secrets.AWS_UNAME }}
           remote_key: ${{ secrets.AWS_PRIVATEKEY }}
-          port: 22000
+          port: 22
 
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@v0.1.7
