@@ -38,5 +38,5 @@ jobs:
             mkdir config
             echo "${{ secrets.AWS_ENV }}" > ./config/config.env
             npm install
-            pm2 delete app
-            pm2 start "npm start" --name app --watch
+            sudo pm2 delete app
+            sudo pm2 start app.js
