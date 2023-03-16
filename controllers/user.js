@@ -14,7 +14,7 @@ const login = asyncHandler(async (req, res, next) => {
         phone: documents[0].phone,
         address: documents[0].address,
       },
-      "86400"
+      86400
     )
   );
 });
