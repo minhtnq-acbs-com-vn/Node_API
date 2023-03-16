@@ -23,7 +23,7 @@ connectDatabase(process.env.databasebURI).catch(console.error);
 
 app.use("/api/v1/user", userRouter);
 
-// app.use(validateToken);
+app.use(validateToken);
 
 app.use("/api/v1/config", configRouter);
 app.use("/api/v1/device", deviceRouter);
