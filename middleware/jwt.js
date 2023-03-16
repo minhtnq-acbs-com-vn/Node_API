@@ -5,6 +5,7 @@ const generateToken = (payload, expiredTime) => {
     expiresIn: expiredTime,
   });
 };
+
 const validateToken = (req, res, next) => {
   const authHeader = req.headers["auth"];
   if (authHeader === undefined) throw new Error(`Invalid token`);
