@@ -9,14 +9,11 @@ const login = asyncHandler(async (req, res, next) => {
     throw new Error("Invalid email || password");
   res.status(200).json({
     success: true,
-    token: generateToken(
-      {
-        name: documents[0].name,
-        phone: documents[0].phone,
-        address: documents[0].address,
-      },
-      86400
-    ),
+    info: {
+      name: documents[0].name,
+      phone: documents[0].phone,
+      address: documents[0].address,
+    },
   });
 });
 
