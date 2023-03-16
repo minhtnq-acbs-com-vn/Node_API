@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 const generateToken = (payload, expiredTime) => {
-  return jwt.sign(payload, process.env.api_key, {
+  return jwt.sign(payload, process.env.apiKey, {
     expiresIn: expiredTime,
   });
 };
@@ -9,7 +9,7 @@ const generateToken = (payload, expiredTime) => {
 const validateToken = (req, res, next) => {
   const authHeader = req.headers["auth"];
   if (authHeader === undefined) throw new Error(`Invalid token`);
-  jwt.verify(authHeader, process.env.api_key, (err, payload) => {
+  jwt.verify(authHeader, process.env.apiKey, (err, payload) => {
     if (err !== null) throw new Error(`Invalid token`);
     next();
   });
