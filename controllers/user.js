@@ -7,16 +7,17 @@ const login = asyncHandler(async (req, res, next) => {
   if (documents.length < 1) throw new Error("Invalid email || password");
   if (documents[0].password !== req.body.password)
     throw new Error("Invalid email || password");
-  res.status(200).json(
-    generateToken(
+  res.status(200).json({
+    success: true,
+    token: generateToken(
       {
         name: documents[0].name,
         phone: documents[0].phone,
         address: documents[0].address,
       },
       86400
-    )
-  );
+    ),
+  });
 });
 
 export { login };
