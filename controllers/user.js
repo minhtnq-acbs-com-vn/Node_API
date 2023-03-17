@@ -7,6 +7,7 @@ const login = asyncHandler(async (req, res, next) => {
   if (documents.length < 1) throw new Error("Invalid email || password");
   if (documents[0].password !== req.body.password)
     throw new Error("Invalid email || password");
+  res.setHeader("auth", generateToken({data: "data"}, 3000));
   res.status(200).json({
     success: true,
     info: {
