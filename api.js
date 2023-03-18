@@ -21,11 +21,11 @@ app.use(express.urlencoded({ extended: true }));
 connectDatabase(process.env.databasebURI).catch(console.error);
 
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/device", deviceRouter);
 
 app.use(validateToken);
 
 app.use("/api/v1/config", configRouter);
-app.use("/api/v1/device", deviceRouter);
 app.use("/api/v1/room", roomRouter);
 app.use("/api/v1/scheduler", schedulerRouter);
 app.use("/api/v1/schedules", schedulesRouter);
