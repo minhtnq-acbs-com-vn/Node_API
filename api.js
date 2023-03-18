@@ -6,7 +6,6 @@ import { router as userRouter } from "./routes/user.js";
 import { validateToken } from "./middleware/jwt.js";
 import { router as configRouter } from "./routes/config.js";
 import { router as deviceRouter } from "./routes/device.js";
-import { router as mobileRouter } from "./routes/mobile.js";
 import { router as roomRouter } from "./routes/room.js";
 import { router as schedulerRouter } from "./routes/scheduler.js";
 import { router as schedulesRouter } from "./routes/schedules.js";
@@ -27,7 +26,6 @@ app.use(validateToken);
 
 app.use("/api/v1/config", configRouter);
 app.use("/api/v1/device", deviceRouter);
-app.use("/api/v1/mobile", mobileRouter);
 app.use("/api/v1/room", roomRouter);
 app.use("/api/v1/scheduler", schedulerRouter);
 app.use("/api/v1/schedules", schedulesRouter);

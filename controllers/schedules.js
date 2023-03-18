@@ -14,16 +14,17 @@ import { ObjectId } from "mongodb";
 const getSchedule = asyncHandler(async (req, res, next) => {
   let documents = await dbRead("Schedules", {
     _id: ObjectId(req.params.id),
+    userID: req.headers["userid"],
   });
   if (documents.length < 1)
-    throw new Error(`Can't find ${req.params.id} in Schedules`);
+    throw new Error(`Can't find ${req.params.id} & ${req.headers["userid"]},`);
   res.status(200).json(documents);
 });
 
 const getAllSchedule = asyncHandler(async (req, res, next) => {
-  let documents = await dbRead("Schedules");
+  let documents = await dbRead("Schedules", { userID: req.headers["userid"] });
   if (documents.length < 1)
-    throw new Error(`Can't find ${req.params.id} in Schedules`);
+    throw new Error(`Can't find ${req.params.id} & ${req.headers["userid"]}`);
   res.status(200).json(documents);
 });
 
