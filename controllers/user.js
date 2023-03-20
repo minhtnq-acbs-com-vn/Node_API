@@ -9,10 +9,7 @@ import { ObjectId } from "mongodb";
 const login = asyncHandler(async (req, res, next) => {
   let documents = await dbRead("Users", { email: req.body.email });
   if (documents.length < 1) throw new Error("Invalid email || password");
-  let result = await bcrypt.compare(
-    JSON.stringify(req.body.password),
-    JSON.stringify(documents[0].password)
-  );
+  let result = await bcrypt.compare(req.body.password, documents[0].password);
   if (!result) throw new Error("Invalid email || password");
   res.setHeader("auth", generateToken({ data: "data" }, 86400));
   res.header("userid", documents[0]._id);
@@ -33,7 +30,7 @@ const passwordChange = asyncHandler(async (req, res, next) => {
     _id: ObjectId(req.headers["userid"]),
   });
   if (document.length < 1) throw new Error(`Invalid ${req.headers["userid"]}`);
-  let hashed = hashPass(req.body.newPassword);
+  const hashed = await bcrypt.hash(req.body.newPassword, 10);
   if (!hashed) throw new Error("Failed to hash pass");
   let result = await dbUpdate(
     "Users",
