@@ -30,8 +30,18 @@ const updateScheduleSchema = Joi.object({
   request: Joi.string().required(),
 });
 
+const passwordChangeSchema = Joi.object({
+  newPassword: Joi.string().required(),
+});
+
 const validateCreateConfig = validator(createConfigSchema);
 const validateCreateSchedule = validator(createScheduleSchema);
 const validateUpdateSchedule = validator(updateScheduleSchema);
+const validatePasswordChange = validator(passwordChangeSchema);
 
-export { validateCreateConfig, validateCreateSchedule, validateUpdateSchedule };
+export {
+  validateCreateConfig,
+  validateCreateSchedule,
+  validateUpdateSchedule,
+  validatePasswordChange,
+};
