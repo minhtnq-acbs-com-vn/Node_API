@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { dbRead } from "../utils/databaseManage.js";
+import { dbRead, dbUpdate } from "../utils/databaseManage.js";
 import { generateToken } from "../middleware/jwt.js";
 import { validatePasswordChange } from "../utils/validator.js";
 import { hashPass } from "./hash.js";
