@@ -3,6 +3,7 @@ import { dbRead } from "../utils/databaseManage.js";
 
 const getAllRooms = asyncHandler(async (req, res, next) => {
   let documents = await dbRead("Device", { userID: req.headers["userid"] });
+  if (req.headers["userid"] === undefined) documents = await dbRead("Device");
   if (documents.length < 1)
     throw new Error(`Cant find any room with ${req.headers["userid"]}`);
   let roomArr = [];

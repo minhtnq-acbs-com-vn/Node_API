@@ -3,7 +3,9 @@ import { dbRead, dbWrite } from "../utils/databaseManage.js";
 
 const getAllYolov5 = asyncHandler(async (req, res, next) => {
   let documents = await dbRead("Yolov5", { userID: req.headers["userid"] });
-  if (documents.length < 1) throw new Error(`Lost default document`);
+  if (req.headers["userid"] === undefined) documents = await dbRead("Yolov5");
+  if (documents.length < 1)
+    throw new Error(`${req.headers["userid"]} don't have yolov5`);
   res.status(200).json(documents);
 });
 
@@ -23,7 +25,9 @@ const addYolov5 = asyncHandler(async (req, res, next) => {
     userID: req.headers["userid"],
   });
   if (documents.length > 0)
-    throw new Error(`Room ${req.body.room} already got yolov5`);
+    throw new Error(
+      `Room ${req.body.room} of ${req.headers["userid"]} already got yolov5`
+    );
   await dbWrite("Yolov5", req.body);
   res.status(200).json({ success: true });
 });

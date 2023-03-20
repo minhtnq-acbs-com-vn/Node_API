@@ -15,7 +15,7 @@ const getDeviceConfig = asyncHandler(async (req, res, next) => {
     userID: req.headers["userid"],
   });
   if (documents.length < 1)
-    throw new Error(`Can't find ${req.params.id} & req.headers["userid"]`);
+    throw new Error(`Can't find ${req.params.id} & ${req.headers["userid"]}`);
   res.status(200).json(documents[0]);
 });
 
