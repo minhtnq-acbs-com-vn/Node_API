@@ -9,7 +9,10 @@ import { ObjectId } from "mongodb";
 const login = asyncHandler(async (req, res, next) => {
   let documents = await dbRead("Users", { email: req.body.email });
   if (documents.length < 1) throw new Error("Invalid email || password");
-  let result = await bcrypt.compare(req.body.password, documents[0].password);
+  let result = await bcrypt.compare(
+    JSON.stringify(req.body.password),
+    JSON.stringify(documents[0].password)
+  );
   if (!result) throw new Error("Invalid email || password");
   res.setHeader("auth", generateToken({ data: "data" }, 86400));
   res.header("userid", documents[0]._id);
