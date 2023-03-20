@@ -25,7 +25,7 @@ const login = asyncHandler(async (req, res, next) => {
 const passwordChange = asyncHandler(async (req, res, next) => {
   const { error } = validatePasswordChange(req.body);
   if (error) throw new Error(`${error.details[0].message}`);
-  let document = await dbRead("Users", { userID: req.headers["userid"] });
+  let document = await dbRead("Users", { _id: req.headers["userid"] });
   if (document.length < 1) throw new Error(`Invalid ${req.headers["userid"]}`);
   let hashed = hashPass(req.body.newPassword);
   if (!hashed) throw new Error("Failed to hash pass");
