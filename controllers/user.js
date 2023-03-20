@@ -4,6 +4,7 @@ import { dbRead } from "../utils/databaseManage.js";
 import { generateToken } from "../middleware/jwt.js";
 import { validatePasswordChange } from "../utils/validator.js";
 import { hashPass } from "./hash.js";
+import { ObjectId } from "mongodb";
 
 const login = asyncHandler(async (req, res, next) => {
   let documents = await dbRead("Users", { email: req.body.email });
