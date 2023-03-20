@@ -20,11 +20,7 @@ const login = asyncHandler(async (req, res, next) => {
   res.header("userid", documents[0]._id);
   res.status(200).json({
     success: true,
-    info: {
-      name: documents[0].name,
-      phone: documents[0].phone,
-      address: documents[0].address,
-    },
+    info: documents[0].address,
   });
 });
 
