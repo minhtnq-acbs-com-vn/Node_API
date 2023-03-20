@@ -30,6 +30,15 @@ const updateScheduleSchema = Joi.object({
   request: Joi.string().required(),
 });
 
+const emailSchema = Joi.object({
+  email: Joi.string().required(),
+});
+
+const tokenValidateSchema = Joi.object({
+  email: Joi.string().required(),
+  token: Joi.string().required(),
+});
+
 const passwordChangeSchema = Joi.object({
   newPassword: Joi.string().required(),
 });
@@ -37,11 +46,15 @@ const passwordChangeSchema = Joi.object({
 const validateCreateConfig = validator(createConfigSchema);
 const validateCreateSchedule = validator(createScheduleSchema);
 const validateUpdateSchedule = validator(updateScheduleSchema);
+const validateEmail = validator(emailSchema);
+const validateResetToken = validator(tokenValidateSchema);
 const validatePasswordChange = validator(passwordChangeSchema);
 
 export {
   validateCreateConfig,
   validateCreateSchedule,
   validateUpdateSchedule,
+  validateEmail,
+  validateResetToken,
   validatePasswordChange,
 };
