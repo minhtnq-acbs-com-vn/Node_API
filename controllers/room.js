@@ -17,6 +17,10 @@ const getRoomDevices = asyncHandler(async (req, res, next) => {
     room: req.params.id,
     userID: req.headers["userid"],
   });
+  if (req.headers["userid"] === undefined)
+    documents = await dbRead("Device", {
+      room: req.params.id,
+    });
   if (documents.length < 1)
     throw new Error(`Can't find ${req.params.id} & ${req.headers["userid"]}`);
   res.status(200).json(documents);
