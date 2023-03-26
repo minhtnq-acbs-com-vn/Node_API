@@ -34,7 +34,7 @@ const addSchedule = asyncHandler(async (req, res, next) => {
   let result = await dbWrite("Schedules", req.body);
   if (result.acknowledged !== true)
     throw new Error("Something wrong with database");
-  res.status(200).json({ success: true, result: result.insertedId });
+  res.status(200).json({ success: true, info: result.insertedId });
 });
 
 const updateSchedule = asyncHandler(async (req, res, next) => {
