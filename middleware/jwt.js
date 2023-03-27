@@ -8,7 +8,10 @@ const generateToken = (payload, expiredTime) => {
 
 const validateToken = (req, res, next) => {
   let systemKey = req.headers["system"];
-  if (systemKey === `${process.env.systemKey}`) next();
+  if (systemKey === `${process.env.systemKey}`){
+    next();
+    return;
+  }
   const authHeader = req.headers["auth"];
   if (authHeader === undefined) throw new Error(`Invalid token`);
   jwt.verify(authHeader, `${process.env.apiKey}`, (err, payload) => {
