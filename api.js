@@ -10,6 +10,7 @@ import { router as roomRouter } from "./routes/room.js";
 import { router as schedulerRouter } from "./routes/scheduler.js";
 import { router as schedulesRouter } from "./routes/schedules.js";
 import { router as yolov5Router } from "./routes/yolov5.js";
+import { router as firebaseRouter } from "./routes/firebase.js";
 import { errorHandler } from "./middleware/error.js";
 dotenv.config({ path: "./config/config.env" });
 
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 connectDatabase(process.env.databasebURI).catch(console.error);
 
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/firebase", firebaseRouter);
 
 app.use(validateToken);
 
