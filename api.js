@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import morgan from "morgan";
+import { initializeApp, cert } from "firebase-admin/app";
 import { connectDatabase } from "./database.js";
 import { router as userRouter } from "./routes/user.js";
 import { validateToken } from "./middleware/jwt.js";
@@ -13,6 +14,10 @@ import { router as yolov5Router } from "./routes/yolov5.js";
 import { router as firebaseRouter } from "./routes/firebase.js";
 import { errorHandler } from "./middleware/error.js";
 dotenv.config({ path: "./config/config.env" });
+
+initializeApp({
+  credential: cert(JSON.parse(process.env.firebaseKey)),
+});
 
 const app = express();
 app.use(morgan("dev"));
