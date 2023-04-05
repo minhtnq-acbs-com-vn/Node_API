@@ -6,7 +6,7 @@ const pushNoti = asyncHandler(async (req, res, next) => {
     data: {
       info: req.body.info,
     },
-    topic: `@${req.body.topic}`,
+    topic: req.body.topic,
   };
   let response = await getMessaging().send(message);
   res.status(200).json({ success: true, resopnse: response });
