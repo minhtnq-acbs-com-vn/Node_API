@@ -3,8 +3,9 @@ import { getMessaging } from "firebase-admin/messaging";
 
 const pushNoti = asyncHandler(async (req, res, next) => {
   const message = {
-    data: {
-      info: req.body.info,
+    notification: {
+      title: "AEDSS alert",
+      body: req.body.info,
     },
     topic: req.body.topic,
   };
