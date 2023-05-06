@@ -50,7 +50,7 @@ const updateSchedule = asyncHandler(async (req, res, next) => {
     {
       timeOn: req.body.timeOn,
       timeOff: req.body.timeOff,
-      repeat: req.body.repeat,
+      rerun: req.body.rerun,
       dayOfTheWeek: req.body.dayOfTheWeek,
       request: req.body.request,
     }

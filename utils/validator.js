@@ -16,7 +16,7 @@ const createScheduleSchema = Joi.object({
   room: Joi.string().required(),
   timeOn: Joi.string().required(),
   timeOff: Joi.string().required(),
-  repeat: Joi.string().required(),
+  rerun: Joi.string().required(),
   dayOfTheWeek: Joi.string().required(),
   request: Joi.string().required(),
 });
@@ -25,7 +25,7 @@ const updateScheduleSchema = Joi.object({
   userID: Joi.string().required(),
   timeOn: Joi.string().required(),
   timeOff: Joi.string().required(),
-  repeat: Joi.string().required(),
+  rerun: Joi.string().required(),
   dayOfTheWeek: Joi.string().required(),
   request: Joi.string().required(),
 });

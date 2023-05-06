@@ -42,7 +42,7 @@ RESPONSE:
     room: <string>,
     timeOn: <string>,
     timeOff: <string>,
-    repeat: <string>
+    rerun: <string>
   }, etc,..
 ]
 */

@@ -37,7 +37,7 @@ router.route("/:id").get(getSchedule);
     room: <string>,
     timeOn: <string>,
     timeOff: <string>,
-    repeat: <string>,
+    rerun: <string>,
     dayOfTheWeek: <string>,
     request: <string>,
   }
@@ -51,7 +51,7 @@ router.route("/").post(addSchedule);
   {
     timeOn: <string>,
     timeOff: <string>,
-    repeat: <string>,
+    rerun: <string>,
     dayOfTheWeek: <string>,
     request: <string>,
   }
